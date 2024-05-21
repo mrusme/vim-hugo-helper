@@ -85,26 +85,10 @@ function! s:IsFileInHugoContentDirectory(filepath)
         let l:mods .= ':h'
         let l:dirname = fnamemodify(l:path, ':t')
         if l:dirname == g:hugohelper_content_dir
-            " Check if the parent of the content directory contains a config file.
-            let l:parent = fnamemodify(l:path, ":h")
-            if s:HasHugoConfigFile(l:parent)
-                return v:true
-            endif
+            return v:true
         endif
     endwhile
 
-    return v:false
-endfunction
-
-function! s:HasHugoConfigFile(dir)
-    " :p adds the final path separator if a:dir is a directory.
-    let l:dirpath = fnamemodify(a:dir, ':p')
-    for config in g:hugohelper_site_config
-        let l:file = l:dirpath . config
-        if filereadable(l:file)
-            return v:true
-        endif
-    endfor
     return v:false
 endfunction
 
